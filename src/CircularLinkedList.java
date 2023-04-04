@@ -1,12 +1,12 @@
-class CircularLinkedList implements Lista {
+class CircularLinkedList<T> implements Lista<T> {
     public Node head;
     @Override
-    public int get(int position) {
+    public T get(int position) {
         Node coso=head;
-        int respuesta=-40;
+        T respuesta = null;
         for(int indice=0;coso.next!=head;indice++){
             if(indice==position){
-                respuesta=coso.data;
+                respuesta= (T) coso.data;
             }
             coso=coso.next;
         }
@@ -14,7 +14,7 @@ class CircularLinkedList implements Lista {
     }
 
     @Override
-    public void add(int value) {
+    public void add(T value) {
         Node nuevo=new Node();
         nuevo.data=value;
         if(head==null){
@@ -38,6 +38,7 @@ class CircularLinkedList implements Lista {
             for(int indice=0;coso.next!=head;indice++){
                 coso=coso.next;
             }
+            coso.next=head.next;
             head=coso.next.next;
         }
         else {
@@ -52,12 +53,31 @@ class CircularLinkedList implements Lista {
     public int size(){
         Node coso=head;
         int tamaño;
-        for(tamaño=0;coso.next!=head;tamaño++){
+        for(tamaño=1;coso.next!=head;tamaño++){
             coso=coso.next;
         }
         return tamaño;
     }
-    //como la recorro, si el siguiente es la cabeza llegue al ultimo
+    public int posicion(T value){
+        Node coso=head;
+        int lugar = 0;
+        for(int indice=0;coso.next!=head;indice++){
+            if(coso.data==value){
+                lugar=indice;
+            }
+            coso=coso.next;
+        }
+        return lugar;
+    }
+    public void mostrar(){
+        Node coso = head;
+        while(coso.next!= head){
+            System.out.println(coso.data);
+            coso=coso.next;
+        }
+        System.out.println(coso.data);
+    }
+
     public static void main(String [] args){
         CircularLinkedList listita= new CircularLinkedList();
         listita.add(10);
@@ -65,12 +85,7 @@ class CircularLinkedList implements Lista {
         listita.add(30);
         listita.add(40);
         listita.add(50);
-        listita.remove(0);
-        Node coso = listita.head;
-        while(coso.next!= listita.head){
-            System.out.println(coso.data);
-            coso=coso.next;
-        }
         System.out.println(listita.size());
+        System.out.println(listita.posicion(40));
     }
 }
