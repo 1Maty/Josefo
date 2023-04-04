@@ -1,7 +1,5 @@
-public interface Lista {
-
-        public void add(int value);
-        public void remove(int position);
-        public int get(int position);
-
+public interface Lista<T> {
+    public void add(T value);
+    public void remove(int position);
+    public T get(int position);
 }
