@@ -35,18 +35,18 @@ class CircularLinkedList<T> implements Lista<T> {
     public void remove(int position) {
         Node coso=head;
         if(position==0){
-            for(int indice=0;coso.next!=head;indice++){
+            while(coso.next!=head){
                 coso=coso.next;
             }
             coso.next=head.next;
-            head=coso.next.next;
+        head=head.next;
         }
+
         else {
             for (int indice = 0; coso.next != head; indice++) {
                 if (position-1== indice) {
                     coso.next = coso.next.next;
                 }
-
                 coso = coso.next;}
         }
     }
@@ -60,12 +60,17 @@ class CircularLinkedList<T> implements Lista<T> {
     }
     public int posicion(T value){
         Node coso=head;
-        int lugar = 0;
+        int lugar = -1;
+        int tamaño=0;
         for(int indice=0;coso.next!=head;indice++){
             if(coso.data==value){
                 lugar=indice;
             }
             coso=coso.next;
+            tamaño++;
+        }
+        if(lugar==-1){
+            lugar=tamaño;
         }
         return lugar;
     }
@@ -85,7 +90,7 @@ class CircularLinkedList<T> implements Lista<T> {
         listita.add(30);
         listita.add(40);
         listita.add(50);
-        System.out.println(listita.size());
-        System.out.println(listita.posicion(40));
+        listita.remove((0));
+        listita.mostrar();
     }
 }
